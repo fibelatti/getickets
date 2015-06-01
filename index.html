@@ -15,6 +15,7 @@
     <!-- Third Party CSS -->
     <link href="css/responsive-calendar.css" rel="stylesheet">
     <link href="css/bootstrap-tagsinput.css" rel="stylesheet">
+    <link href="css/select2.css" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link href="css/index.css" rel="stylesheet">
@@ -26,6 +27,7 @@
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/third-party/responsive-calendar.js"></script>
     <script type="text/javascript" src="js/third-party/bootstrap-tagsinput.js"></script>
+    <script type="text/javascript" src="js/third-party/select2.js"></script>
     
     <script type="text/javascript">
       $(document).ready(function() {
@@ -147,7 +149,7 @@
     <!-- End Modal: Profile -->
     
     <!-- Modal: Bands -->
-    <div class="modal fade" id="modalBands" tabindex="-1" role="dialog" aria-labelledby="modalBandsProfile" aria-hidden="true">
+    <div class="modal fade" id="modalBands" role="dialog" aria-labelledby="modalBandsProfile" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -156,7 +158,8 @@
           </div>
           <div class="modal-body">
             <div id="content-bands">
-
+              <select class="form-control bands-ajax">
+              </select>
             </div>
           </div>
         </div>
