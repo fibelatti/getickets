@@ -1,0 +1,242 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" width="device-width">
+    <meta name="author" content="Filipe Belatti" />
+    <meta name="description" content="Sistema desenvolvido como parte da avaliação para a disciplina IHC da FATEC-SP" />
+    <meta name="Resource-type" content="Document" />
+
+    <title>GeTickets!</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Third Party CSS -->
+    <link href="css/responsive-calendar.css" rel="stylesheet">
+    <link href="css/bootstrap-tagsinput.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="css/index.css" rel="stylesheet">
+    
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/third-party/jquery-2.1.1.js"></script>
+    
+    <!-- Other js files -->
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/third-party/responsive-calendar.js"></script>
+    <script type="text/javascript" src="js/third-party/bootstrap-tagsinput.js"></script>
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+        // Background js
+        var backgrounds = [
+           "includes/images/backgrounds/background-1.jpg",
+           "includes/images/backgrounds/background-2.jpg",
+           "includes/images/backgrounds/background-3.jpg"
+        ];
+  
+        var randIndex = parseInt(Math.random() * backgrounds.length, 10);
+        
+        $('body').css('background-image', 'url('+backgrounds[randIndex]+')');
+        
+        // Calendar js
+        $('.responsive-calendar').responsiveCalendar({
+          translateMonths : ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+          monthChangeAnimation : false,
+          onActiveDayClick: function(events) {
+            showDayEventsPopover(this, events);
+          },
+          events: {
+            "2015-05-30": {"number": 1, "badgeClass": "badge-standard", "url": "",
+              "dayEvents": [{"name": "Architects"}]
+            },
+            "2015-09-25": {"number": 1, "badgeClass": "badge-standard", "url": "",
+              "dayEvents": [{"name": "System Of A Down"}]
+            },
+            "2015-09-27": {"number": 1, "badgeClass": "badge-standard", "url": "",
+              "dayEvents": [{"name": "Slipknot"}]
+            }
+          }
+        });
+        
+        // Show Login
+        $('#modalLogin').modal('show');
+      });
+    </script>
+    
+  </head>
+  <body>
+    <!-- Modal: Login -->
+    <div class="modal fade modal-login" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+            <h4 class="modal-title">Login em GeTickets!</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <input type="email" class="form-control" id="login-user" placeholder="Usuário">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="login-pwd" placeholder="Senha">
+              </div>
+              <button id="modal-ok" type="button" class="btn btn-standard" data-dismiss="modal">Entrar</button>
+              <p><a href="#">Esqueceu a senha?</a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    <!-- Page Content -->
+    <div class="main-container">
+      <!-- Nav Bar -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <a id="nav-username" class="navbar-brand" href="#"></a>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Sair</a></li>
+          </ul>
+        </div>
+      </nav>
+      
+      <!-- Menu -->
+      <div id="main-menu">
+        <div class="row main-menu-row">
+          <div class="col-sm-12 col-md-12 col-lg-3">
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalProfile">Meu Perfil</button>
+          </div>
+
+          <div class="col-sm-12 col-md-12 col-lg-3">
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalBands">Minhas Bandas</button>
+          </div>
+
+          <div class="col-sm-12 col-md-12 col-lg-3">
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalCalendar">Calendário</button>
+          </div>
+          
+          <div class="col-sm-12 col-md-12 col-lg-3">
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalDiscover">Descubra!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Main Container -->
+      
+    <!-- Main Content -->
+    
+    <!-- Modal: Profile -->
+    <div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="modalProfileLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+            <h4 class="modal-title">Meu Perfil</h4>
+          </div>
+          <div class="modal-body">
+            <div id="content-profile">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal: Profile -->
+    
+    <!-- Modal: Bands -->
+    <div class="modal fade" id="modalBands" tabindex="-1" role="dialog" aria-labelledby="modalBandsProfile" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+            <h4 class="modal-title">Minhas Bandas</h4>
+          </div>
+          <div class="modal-body">
+            <div id="content-bands">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal: Bands -->
+    
+    <!-- Modal: Calendar -->
+    <div class="modal fade" id="modalCalendar" tabindex="-1" role="dialog" aria-labelledby="modalCalendarLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+            <h4 class="modal-title">Calendário</h4>
+          </div>
+          <div class="modal-body">
+            <div id="content-calendar">
+              <div class="row">
+                <!-- Responsive calendar - START -->
+                <div class="responsive-calendar">
+                  <div class="controls">
+                    <div class="col-xs-1 col-sm-1 col-lg-1">
+                      <button type="button" class="btn btn-standard btn-sm" data-go="prev">
+                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                    <div class="col-xs-9 col-sm-10 col-lg-10">
+                      <h4>
+                        <span data-head-year></span> 
+                        <span data-head-month></span>
+                      </h4>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-lg-1">
+                      <button type="button" class="btn btn-standard btn-sm" data-go="next">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>
+                  <br>
+                  <hr/>
+                  <div class="day-headers">
+                    <div class="day header">Seg</div>
+                    <div class="day header">Ter</div>
+                    <div class="day header">Qua</div>
+                    <div class="day header">Qui</div>
+                    <div class="day header">Sex</div>
+                    <div class="day header">Sab</div>
+                    <div class="day header">Dom</div>
+                  </div>
+                  <div class="days" data-group="days">
+                    <!-- the place where days will be generated -->
+                  </div>
+                </div>
+                <!-- Responsive calendar - END -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal: Calendar -->
+    
+    <!-- Modal: Discover -->
+    <div class="modal fade" id="modalDiscover" tabindex="-1" role="dialog" aria-labelledby="modalDiscoverLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+            <h4 class="modal-title">Descubra!</h4>
+          </div>
+          <div class="modal-body">
+            <div id="content-discover">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal: Profile -->
+
+    <script type="text/javascript" src="js/util.js"></script>
+  </body>
+</html>
