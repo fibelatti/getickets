@@ -27,6 +27,7 @@
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/third-party/responsive-calendar.js"></script>
     <script type="text/javascript" src="js/third-party/bootstrap-tagsinput.js"></script>
+    <script type="text/javascript" src="js/third-party/typeahead.bundle.js"></script>
     <script type="text/javascript" src="js/third-party/select2.js"></script>
     
     <script type="text/javascript">
@@ -53,12 +54,18 @@
             "2015-05-30": {"number": 1, "badgeClass": "badge-standard", "url": "",
               "dayEvents": [{"name": "Architects"}]
             },
-            "2015-09-25": {"number": 1, "badgeClass": "badge-standard", "url": "",
-              "dayEvents": [{"name": "System Of A Down"}]
+            "2015-09-25": {"number": 2, "badgeClass": "badge-standard", "url": "",
+              "dayEvents": [{"name": "System Of A Down"}, {"name": "Deftones"}]
             },
             "2015-09-27": {"number": 1, "badgeClass": "badge-standard", "url": "",
               "dayEvents": [{"name": "Slipknot"}]
             }
+          }
+        });
+        
+        $('#gendertags').tagsinput({
+          typeahead: {
+            source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
           }
         });
         
@@ -140,7 +147,70 @@
           </div>
           <div class="modal-body">
             <div id="content-profile">
-
+              <div class="row">
+                <div class="col-sm-3 col-md-3">
+                  <div class="text-center">
+                    <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+                    <br>
+                    <br>
+                    <input type="file" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-9 col-md-9 personal-info">
+                  <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                      <label class="col-lg-3 control-label">Nome:</label>
+                      <div class="col-md-8">
+                        <input class="form-control" type="text" value="Filipe Belatti">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-lg-3 control-label">Idade:</label>
+                      <div class="col-lg-8">
+                        <input class="form-control" type="text" value="23">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-lg-3 control-label">Cidade:</label>
+                      <div class="col-lg-8">
+                        <input class="form-control" type="text" value="São Paulo">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-lg-3 control-label">Email:</label>
+                      <div class="col-lg-8">
+                        <input class="form-control" type="text" value="fibelatti@gmail.com">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Usuário:</label>
+                      <div class="col-md-8">
+                        <input class="form-control" type="text" value="fibelatti">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Senha:</label>
+                      <div class="col-md-8">
+                        <input class="form-control" type="password" value="11111122333">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-lg-3 control-label">Gêneros:</label>
+                      <div class="col-lg-8">
+                        <input id="gendertags" class="form-control" type="text" value="" data-role="tagsinput">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label"></label>
+                      <div class="col-md-8">
+                        <input type="button" class="btn btn-primary" value="Save Changes">
+                        <span></span>
+                        <input type="reset" class="btn btn-default" value="Cancel">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -149,17 +219,91 @@
     <!-- End Modal: Profile -->
     
     <!-- Modal: Bands -->
-    <div class="modal fade" id="modalBands" role="dialog" aria-labelledby="modalBandsProfile" aria-hidden="true">
+    <div class="modal fade" id="modalBands" role="dialog" aria-labelledby="modalBandsProfile" aria-hidden="true" style="min-height:70%;">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">x</button>
             <h4 class="modal-title">Minhas Bandas</h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="min-height:80%;overflow:auto;">
             <div id="content-bands">
-              <select class="form-control bands-ajax">
-              </select>
+              <div>
+                <select class="form-control bands-ajax">
+                </select>
+              </div>
+              <br>
+              <hr/>
+              <div id="mybandsinfo">
+                <div class="col-sm-4 col-md-4">
+                  <div class="card hovercard">
+                    <div class="cardheader">
+                      <button type="button" class="close bandcard" onclick="dismissCard()">x</button>
+                    </div>
+                    <div class="avatar">
+                      <img alt="Alexisonfire" src="https://i.scdn.co/image/2a64f50254d61b3a359cde298fd57f95174d8e46">
+                    </div>
+                    <div class="info">
+                      <h3>Alexisonfire</h3>
+                    </div>
+                    <div class="bottom">
+                      <button type="button" class="btn btn-positive btn-sm">Ouça no Spotify!</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-sm-4 col-md-4">
+                  <div class="card hovercard">
+                    <div class="cardheader">
+                      <button type="button" class="close bandcard">x</button>
+                    </div>
+                    <div class="avatar">
+                      <img alt="Architects" src="https://i.scdn.co/image/e9180e17705fa0028a8f12545da9cc9d285f12aa">
+                    </div>
+                    <div class="info">
+                      <h3>Architects</h3>
+                    </div>
+                    <div class="bottom">
+                      <button type="button" class="btn btn-positive btn-sm">Ouça no Spotify!</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-sm-4 col-md-4">
+                  <div class="card hovercard">
+                    <div class="cardheader">
+                      <button type="button" class="close bandcard">x</button>
+                    </div>
+                    <div class="avatar">
+                      <img alt="Slipknot" src="https://i.scdn.co/image/0e8f7d2a392a7e18b72672ae004c98ccf6c72452">
+                    </div>
+                    <div class="info">
+                      <h3>Slipknot</h3>
+                    </div>
+                    <div class="bottom">
+                      <button type="button" class="btn btn-positive btn-sm">Ouça no Spotify!</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-sm-4 col-md-4">
+                  <div class="card hovercard">
+                    <div class="cardheader">
+                      <button type="button" class="close bandcard">x</button>
+                    </div>
+                    <div class="avatar">
+                      <img alt="System Of A Down" src="https://i.scdn.co/image/3ec25089636b19338120eadd88bef1f0904b9572">
+                    </div>
+                    <div class="info">
+                      <h3>System Of A Down</h3>
+                    </div>
+                    <div class="bottom">
+                      <button type="button" class="btn btn-positive btn-sm">Ouça no Spotify!</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
