@@ -1,8 +1,3 @@
-/*
-ToDo
-	-Integrate with Bandsintown API
-*/
-
 function setUpCalendar() {
   $('.responsive-calendar').responsiveCalendar({
     translateMonths : ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
@@ -11,14 +6,14 @@ function setUpCalendar() {
       showDayEventsPopover(this, events);
     },
     events: {
-      "2015-05-30": {"number": 1, "badgeClass": "badge-standard", "url": "",
-        "dayEvents": [{"name": "Architects"}]
+      "2015-05-30": {"number": 1, "badgeClass": "badge-standard",
+        "dayEvents": [{"name": "Architects", "ticketURL": ""}]
       },
-      "2015-09-25": {"number": 2, "badgeClass": "badge-standard", "url": "",
-        "dayEvents": [{"name": "System Of A Down"}, {"name": "Deftones"}]
+      "2015-09-25": {"number": 2, "badgeClass": "badge-standard",
+        "dayEvents": [{"name": "System Of A Down", "ticketURL": ""}, {"name": "Deftones", "ticketURL": ""}]
       },
-      "2015-09-27": {"number": 1, "badgeClass": "badge-standard", "url": "",
-        "dayEvents": [{"name": "Slipknot"}]
+      "2015-09-27": {"number": 1, "badgeClass": "badge-standard",
+        "dayEvents": [{"name": "Slipknot", "ticketURL": ""}]
       }
     }
   });
@@ -48,5 +43,35 @@ function showDayEventsPopover(ref, events) {
       
       return str;
     }
+  });
+}
+
+function loadUserCalendar () {
+  var requestURL, myCity, myBands = "" ;
+  
+  // ToDo: Replace this with User Bands
+  var array = ("System Of A Down,Slipknot").split(',');
+  
+  for (var i = 0; i < array.length; i++) {
+    myBands += "artists[]=" + array[i].split(' ').join('%20') + "&";
+  }
+  
+  myCity = "Sao%20Paulo,Brasil"
+  
+  requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&format=json&app_id=getickets"
+  
+  $.ajax({
+    url: requestURL,
+    type: "GET",
+    dataType: 'jsonp',
+    success: function(resultData) {
+        console.log(resultData);
+      
+      /*
+        ToDo
+          -Loop result to create Event Object
+      */
+    },
+    timeout: 120000
   });
 }

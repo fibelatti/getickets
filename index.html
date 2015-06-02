@@ -56,6 +56,8 @@
         
         // Show Login
         $('#modalLogin').modal('show');
+        
+        loadUserCalendar();
       });
     </script>
     
@@ -214,16 +216,21 @@
           <div class="modal-body modal-bands-content">
             <div id="content-bands">
               <div>
-                <select class="form-control bands-ajax">
-                </select>
+                <div class="col-sm-10 col-md-10">
+                  <select class="form-control bands-ajax">
+                  </select>
+                </div>
+                <div class="col-sm-2 col-md-2">
+                  <button type="button" class="btn btn-standard">Adicionar</button>
+                </div>
+                <br>
+                <hr/>
               </div>
-              <br>
-              <hr/>
               <div id="mybandsinfo">
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
                   <div class="card hovercard">
                     <div class="cardheader">
-                      <button type="button" class="close bandcard" onclick="dismissCard()">x</button>
+                      <button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>
                     </div>
                     <div class="avatar">
                       <img alt="Alexisonfire" src="https://i.scdn.co/image/2a64f50254d61b3a359cde298fd57f95174d8e46">
@@ -232,15 +239,15 @@
                       <h3>Alexisonfire</h3>
                     </div>
                     <div class="bottom">
-                      <button type="button" class="btn btn-spotify btn-sm">Ouça no Spotify!</button>
+                      <a type="button" class="btn btn-spotify btn-sm" href="https://open.spotify.com/artist/53RsXctnNmj9oKXvcbvzI2">Ouça no Spotify!</a>
                     </div>
                   </div>
                 </div>
                 
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
                   <div class="card hovercard">
                     <div class="cardheader">
-                      <button type="button" class="close bandcard">x</button>
+                      <button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>
                     </div>
                     <div class="avatar">
                       <img alt="Architects" src="https://i.scdn.co/image/e9180e17705fa0028a8f12545da9cc9d285f12aa">
@@ -254,10 +261,10 @@
                   </div>
                 </div>
                 
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
                   <div class="card hovercard">
                     <div class="cardheader">
-                      <button type="button" class="close bandcard">x</button>
+                      <button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>
                     </div>
                     <div class="avatar">
                       <img alt="Slipknot" src="https://i.scdn.co/image/0e8f7d2a392a7e18b72672ae004c98ccf6c72452">
@@ -271,10 +278,10 @@
                   </div>
                 </div>
                 
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
                   <div class="card hovercard">
                     <div class="cardheader">
-                      <button type="button" class="close bandcard">x</button>
+                      <button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>
                     </div>
                     <div class="avatar">
                       <img alt="System Of A Down" src="https://i.scdn.co/image/3ec25089636b19338120eadd88bef1f0904b9572">
