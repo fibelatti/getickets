@@ -80,6 +80,18 @@ a{
   border-color: #ac2925;
 }
 
+.btn-spotify{
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.btn-spotify:hover{
+  color: #fff;
+  background-color: #57a857;
+  border-color: #57a857;
+}
+
 .modal-login {
   max-height: 70%;
   overflow: auto;
@@ -115,7 +127,7 @@ body.modal-open .main-container{
   margin: 10%;
 }
 
-/* Calendar CSS */
+/* CALENDAR CSS */
 .day.today {
   font-weight: bold;
   background-color: darkgray;
@@ -142,6 +154,13 @@ body.modal-open .main-container{
   margin: 1px;
 }
 
+/* BANDS CSS */
+.modal-bands-content {
+  height:80%;
+  overflow:auto;
+}
+
+/* CARDS CSS */
 .card {
     padding-top: 20px;
     margin: 10px;
@@ -198,6 +217,33 @@ body.modal-open .main-container{
 .bandcard {
   margin-right: 5px;
 }
+
+/* BANDS SEARCH CSS */
 .result-row {
   min-height: 50px;
+}
+
+.band-info-result {
+  text-align: left;
+  font-weight: bold;
+  vertical-align: center;
+}
+
+.band-img-result {
+  width: 50px;
+  height: 50px;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+background-color: #e67e22;
+color: white;
+}
+
+.select2-container--classic .select2-results__option--highlighted[aria-selected] {
+background-color: #e67e22;
+color: white;
+}
+
+.select2-container--classic.select2-container--open .select2-dropdown {
+border-color: #e67e22;
 }

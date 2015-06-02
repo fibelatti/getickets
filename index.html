@@ -23,12 +23,19 @@
     <!-- jQuery -->
     <script type="text/javascript" src="js/third-party/jquery-2.1.1.js"></script>
     
-    <!-- Other js files -->
+    <!-- Third Party js files -->
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/third-party/responsive-calendar.js"></script>
     <script type="text/javascript" src="js/third-party/bootstrap-tagsinput.js"></script>
     <script type="text/javascript" src="js/third-party/typeahead.bundle.js"></script>
     <script type="text/javascript" src="js/third-party/select2.js"></script>
+    
+    <!-- js -->
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/profile.js"></script>
+    <script type="text/javascript" src="js/bands.js"></script>
+    <script type="text/javascript" src="js/calendar.js"></script>
     
     <script type="text/javascript">
       $(document).ready(function() {
@@ -43,31 +50,9 @@
         
         $('body').css('background-image', 'url('+backgrounds[randIndex]+')');
         
-        // Calendar js
-        $('.responsive-calendar').responsiveCalendar({
-          translateMonths : ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-          monthChangeAnimation : false,
-          onActiveDayClick: function(events) {
-            showDayEventsPopover(this, events);
-          },
-          events: {
-            "2015-05-30": {"number": 1, "badgeClass": "badge-standard", "url": "",
-              "dayEvents": [{"name": "Architects"}]
-            },
-            "2015-09-25": {"number": 2, "badgeClass": "badge-standard", "url": "",
-              "dayEvents": [{"name": "System Of A Down"}, {"name": "Deftones"}]
-            },
-            "2015-09-27": {"number": 1, "badgeClass": "badge-standard", "url": "",
-              "dayEvents": [{"name": "Slipknot"}]
-            }
-          }
-        });
-        
-        $('#gendertags').tagsinput({
-          typeahead: {
-            source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
-          }
-        });
+        // Set up functionalities
+        setUpCalendar();
+        setUpBandsSearch();
         
         // Show Login
         $('#modalLogin').modal('show');
@@ -219,14 +204,14 @@
     <!-- End Modal: Profile -->
     
     <!-- Modal: Bands -->
-    <div class="modal fade" id="modalBands" role="dialog" aria-labelledby="modalBandsProfile" aria-hidden="true" style="min-height:70%;">
+    <div class="modal fade" id="modalBands" role="dialog" aria-labelledby="modalBandsProfile" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">x</button>
             <h4 class="modal-title">Minhas Bandas</h4>
           </div>
-          <div class="modal-body" style="min-height:80%;overflow:auto;">
+          <div class="modal-body modal-bands-content">
             <div id="content-bands">
               <div>
                 <select class="form-control bands-ajax">
@@ -235,7 +220,7 @@
               <br>
               <hr/>
               <div id="mybandsinfo">
-                <div class="col-sm-4 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-4">
                   <div class="card hovercard">
                     <div class="cardheader">
                       <button type="button" class="close bandcard" onclick="dismissCard()">x</button>
@@ -247,12 +232,12 @@
                       <h3>Alexisonfire</h3>
                     </div>
                     <div class="bottom">
-                      <button type="button" class="btn btn-positive btn-sm">Ouça no Spotify!</button>
+                      <button type="button" class="btn btn-spotify btn-sm">Ouça no Spotify!</button>
                     </div>
                   </div>
                 </div>
                 
-                <div class="col-sm-4 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-4">
                   <div class="card hovercard">
                     <div class="cardheader">
                       <button type="button" class="close bandcard">x</button>
@@ -264,12 +249,12 @@
                       <h3>Architects</h3>
                     </div>
                     <div class="bottom">
-                      <button type="button" class="btn btn-positive btn-sm">Ouça no Spotify!</button>
+                      <button type="button" class="btn btn-spotify btn-sm">Ouça no Spotify!</button>
                     </div>
                   </div>
                 </div>
                 
-                <div class="col-sm-4 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-4">
                   <div class="card hovercard">
                     <div class="cardheader">
                       <button type="button" class="close bandcard">x</button>
@@ -281,12 +266,12 @@
                       <h3>Slipknot</h3>
                     </div>
                     <div class="bottom">
-                      <button type="button" class="btn btn-positive btn-sm">Ouça no Spotify!</button>
+                      <button type="button" class="btn btn-spotify btn-sm">Ouça no Spotify!</button>
                     </div>
                   </div>
                 </div>
                 
-                <div class="col-sm-4 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-4">
                   <div class="card hovercard">
                     <div class="cardheader">
                       <button type="button" class="close bandcard">x</button>
@@ -298,10 +283,10 @@
                       <h3>System Of A Down</h3>
                     </div>
                     <div class="bottom">
-                      <button type="button" class="btn btn-positive btn-sm">Ouça no Spotify!</button>
+                      <button type="button" class="btn btn-spotify btn-sm">Ouça no Spotify!</button>
                     </div>
                   </div>
-                </div>
+                </div>               
 
               </div>
             </div>
@@ -383,7 +368,5 @@
       </div>
     </div>
     <!-- End Modal: Profile -->
-
-    <script type="text/javascript" src="js/util.js"></script>
   </body>
 </html>
