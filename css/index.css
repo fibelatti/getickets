@@ -131,3 +131,7 @@ body.modal-open .main-container{
 .badge-standard {
   background-color: #e67e22;
 }
+
+.result-row {
+  min-height: 50px;
+}
