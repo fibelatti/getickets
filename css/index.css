@@ -218,6 +218,10 @@ body.modal-open .main-container{
   margin-right: 5px;
 }
 
+.band-info-spotify-id {
+  display: none;
+}
+
 /* BANDS SEARCH CSS */
 .result-row {
   min-height: 50px;

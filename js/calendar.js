@@ -56,9 +56,9 @@ function loadUserCalendar () {
     myBands += "artists[]=" + array[i].split(' ').join('%20') + "&";
   }
   
-  myCity = "Sao%20Paulo,Brasil"
+  myCity = "São%20Paulo,Brasil"
   
-  requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&format=json&app_id=getickets"
+  requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&format=json&app_id=getickets";
   
   $.ajax({
     url: requestURL,

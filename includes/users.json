@@ -1,0 +1,22 @@
+{
+	"users":[
+		{
+			"name":"Filipe Belatti",
+			"age":"23",
+			"city":"São Paulo",
+			"email":"fibelatti@gmail.com",
+			"username":"fibelatti",
+			"genderTags":"rock,metal",
+			"bands":"Alexisonfire,Architects,System Of A Down,Slipknot"
+		},
+		{
+			"name":"Alexandre Briskieviez",
+			"age":"21",
+			"city":"São Paulo",
+			"email":"",
+			"username":"absilva",
+			"genderTags":"rock,classic rock",
+			"bands":"Iron Maiden,Metallica,System Of A Down"
+		}
+	]
+}

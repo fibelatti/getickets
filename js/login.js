@@ -8,3 +8,4 @@ ToDo
 $('#modal-ok').on('click', function () {
   $('#nav-username').text('Bem vindo, ' + $('#login-user').val() + '!');
 });
+
