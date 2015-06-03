@@ -5,17 +5,7 @@ function setUpCalendar() {
     onActiveDayClick: function(events) {
       showDayEventsPopover(this, events);
     },
-    events: {
-      "2015-05-30": {"number": 1, "badgeClass": "badge-standard",
-        "dayEvents": [{"name": "Architects", "ticketURL": ""}]
-      },
-      "2015-09-25": {"number": 2, "badgeClass": "badge-standard",
-        "dayEvents": [{"name": "System Of A Down", "ticketURL": ""}, {"name": "Deftones", "ticketURL": ""}]
-      },
-      "2015-09-27": {"number": 1, "badgeClass": "badge-standard",
-        "dayEvents": [{"name": "Slipknot", "ticketURL": ""}]
-      }
-    }
+    events: {}
   });
 }
 
@@ -36,7 +26,7 @@ function showDayEventsPopover(ref, events) {
       var str = '<div>';
       
       for (i = 0; i < thisDayEvent.dayEvents.length; i++) {
-        str += '<div><button type="button" class="btn btn-standard btn-xs">GeTickets!</button>  ' + thisDayEvent.dayEvents[i].name + '</div><br>';
+        str += '<div><a type="button" class="btn btn-standard btn-xs" href="' + thisDayEvent.dayEvents[i].ticketURL + '">GeTickets!</a>  ' + thisDayEvent.dayEvents[i].name + '</div><br>';
       }
       
       str += '</div>';
@@ -47,7 +37,7 @@ function showDayEventsPopover(ref, events) {
 }
 
 function loadUserCalendar () {
-  var requestURL, myCity, myBands = "" ;
+  var requestURL, key, myCity, myBands = "", events = {}, eventInfo;
   
   // ToDo: Replace this with User Bands
   var array = ("System Of A Down,Slipknot").split(',');
@@ -56,7 +46,8 @@ function loadUserCalendar () {
     myBands += "artists[]=" + array[i].split(' ').join('%20') + "&";
   }
   
-  myCity = "São%20Paulo,Brasil"
+  // ToDo: Replace this with User City
+  myCity = "São%20Paulo" + ",Brasil"
   
   requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&format=json&app_id=getickets";
   
@@ -64,13 +55,27 @@ function loadUserCalendar () {
     url: requestURL,
     type: "GET",
     dataType: 'jsonp',
+    cache: true,
     success: function(resultData) {
-        console.log(resultData);
+      for (var i = 0; i < resultData.length; i++) {
+        key = resultData[i].datetime.substring(0, 10);
+        
+        events[key] = {};
+        events[key].number = events[key].number === undefined ? 1 : events[key].number + 1;
+        events[key].badgeClass = "badge-standard";
+        
+        if (events[key].dayEvents === undefined || events[key].dayEvents.length == 0) {
+          events[key].dayEvents = [];
+        }
+        
+        eventInfo = {};
+        eventInfo.name = resultData[i].artists[0].name;
+        eventInfo.ticketURL = resultData[i].ticket_url;
+        
+        events[key].dayEvents.push(eventInfo);
+      }
       
-      /*
-        ToDo
-          -Loop result to create Event Object
-      */
+      $('.responsive-calendar').responsiveCalendar('edit', events);
     },
     timeout: 120000
   });
