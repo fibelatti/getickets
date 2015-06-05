@@ -22,6 +22,7 @@
     
     <!-- jQuery -->
     <script type="text/javascript" src="js/third-party/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="js/third-party/jquery.cookie.js"></script>
     
     <!-- Third Party js files -->
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
@@ -32,7 +33,7 @@
     
     <!-- js -->
     <script type="text/javascript" src="js/util.js"></script>
-    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/user.js"></script>
     <script type="text/javascript" src="js/profile.js"></script>
     <script type="text/javascript" src="js/bands.js"></script>
     <script type="text/javascript" src="js/calendar.js"></script>
@@ -58,6 +59,7 @@
         // Show Login
         $('#modalLogin').modal('show');
         
+        loadUserData();
         loadUserCalendar();
         loadUserBands();
         loadUserDiscover();
@@ -82,7 +84,7 @@
               <div class="form-group">
                 <input type="password" class="form-control" id="login-pwd" placeholder="Senha">
               </div>
-              <button id="modal-ok" type="button" class="btn btn-standard" data-dismiss="modal">Entrar</button>
+              <button type="button" class="btn btn-standard" data-dismiss="modal" onclick="login();">Entrar</button>
               <p><a href="#">Esqueceu a senha?</a></p>
             </form>
           </div>
@@ -224,7 +226,7 @@
                   </select>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                  <button type="button" class="btn btn-standard">Adicionar</button>
+                  <button type="button" class="btn btn-standard" onclick="addBandCard();">Adicionar</button>
                 </div>
                 <br>
                 <hr/>

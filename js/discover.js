@@ -16,7 +16,6 @@ function loadUserDiscover () {
   
   var countDisplayed = 0;
 
-  // Discover only related bands from 3 artists per refresh
   while (countDisplayed < 3) {
     randIndex = parseInt(Math.random() * arrayMyBands.length, 10);
     if (arrayBaseArtists.indexOf(arrayMyBands[randIndex]) == -1) {
@@ -46,7 +45,8 @@ function loadUserDiscover () {
               arrayRelatedArtists.push(artists[randIndex2].id);
               countRelated++;
               
-              imgIndex = artists[randIndex2].images.length >= 1 ? 0 : -1;
+              imgIndex = artists[randIndex2].images.length - 2;
+              //imgIndex = artists[randIndex2].images.length >= 1 ? 0 : -1;
               
               var cardLayout = '<div class="col-xs-12 col-sm-12 col-md-4 bandcard-item">' +
                 '<div class="card hovercard">' +

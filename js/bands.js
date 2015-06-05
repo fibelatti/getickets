@@ -1,8 +1,3 @@
-/*
-ToDo
-	-Add Cards (Collect artist.name, artist.images[imgIndex].url, artist.external_urls.spotify
-*/
-
 function setUpBandsSearch () {
   $(".bands-ajax").select2({
     width: '100%',
@@ -23,8 +18,8 @@ function setUpBandsSearch () {
     },
     escapeMarkup: function (markup) { return markup; },
     minimumInputLength: 2,
-    templateResult: formatArtist, // omitted for brevity, see the source of this page
-    templateSelection: formatArtistSelection // omitted for brevity, see the source of this page
+    templateResult: formatArtist,
+    templateSelection: formatArtistSelection
   });
 }
 
@@ -60,19 +55,22 @@ function dismissCard () {
 
 function addBandCard () {
   var cardContainer = $('#mybandsinfo');
+  var artist = $(".bands-ajax").find(":selected").data().data;
+  
+  var imgIndex = artist.images.length - 2;
   
   var cardLayout = '<div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">' +
     '<div class="card hovercard">' +
     '<div class="cardheader">' +
     '<button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>' +
-    '</div' +
+    '</div>' +
     '<div class="avatar">' +
     '<img alt="' + artist.name + '" src="' + artist.images[imgIndex].url + '">' +
     '</div>' +
     '<div class="info">' +
     '<h3>' + artist.name + '</h3>' +
     '<div class="band-info-spotify-id">' + artist.id + '</div>' +
-    '<div class="band-info-spotify-url">' + artists[i].external_urls.spotify + '</div>' +
+    '<div class="band-info-spotify-url">' + artist.external_urls.spotify + '</div>' +
     '</div>' +
     '<div class="bottom">' +
     '<a type="button" class="btn btn-spotify btn-sm" href="' + artist.external_urls.spotify + '">Ouça no Spotify!</a>' +
