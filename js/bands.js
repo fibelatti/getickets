@@ -72,6 +72,7 @@ function addBandCard () {
     '<div class="info">' +
     '<h3>' + artist.name + '</h3>' +
     '<div class="band-info-spotify-id">' + artist.id + '</div>' +
+    '<div class="band-info-spotify-url">' + artists[i].external_urls.spotify + '</div>' +
     '</div>' +
     '<div class="bottom">' +
     '<a type="button" class="btn btn-spotify btn-sm" href="' + artist.external_urls.spotify + '">Ouça no Spotify!</a>' +
@@ -101,7 +102,9 @@ function loadUserBands () {
       var artists = resultData.artists;
       
       for (var i = 0; i < artists.length; i++) {
-        imgIndex = artists[i].images.length - 1;
+        //imgIndex = artists[i].images.length - 1;
+        
+        imgIndex = artists[i].images.length >= 1 ? 0 : -1;
         
         cardLayout = '<div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">' +
           '<div class="card hovercard">' +
@@ -114,6 +117,7 @@ function loadUserBands () {
           '<div class="info">' +
           '<h3>' + artists[i].name + '</h3>' +
           '<div class="band-info-spotify-id">' + artists[i].id + '</div>' +
+          '<div class="band-info-spotify-url">' + artists[i].external_urls.spotify + '</div>' +
           '</div>' +
           '<div class="bottom">' +
           '<a type="button" class="btn btn-spotify btn-sm" href="' + artists[i].external_urls.spotify + '">Ouça no Spotify!</a>' +
