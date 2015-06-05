@@ -207,14 +207,14 @@
     <!-- End Modal: Profile -->
     
     <!-- Modal: Bands -->
-    <div class="modal fade" id="modalBands" role="dialog" aria-labelledby="modalBandsProfile" aria-hidden="true">
+    <div class="modal fade" id="modalBands" role="dialog" aria-labelledby="modalBandsLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">x</button>
             <h4 class="modal-title">Minhas Bandas</h4>
           </div>
-          <div class="modal-body modal-bands-content">
+          <div class="modal-body modal-cards">
             <div id="content-bands">
               <div>
                 <div class="col-sm-10 col-md-10">
@@ -227,77 +227,8 @@
                 <br>
                 <hr/>
               </div>
+              <!-- This will hold the cards -->
               <div id="mybandsinfo">
-                <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
-                  <div class="card hovercard">
-                    <div class="cardheader">
-                      <button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>
-                    </div>
-                    <div class="avatar">
-                      <img alt="Alexisonfire" src="https://i.scdn.co/image/2a64f50254d61b3a359cde298fd57f95174d8e46">
-                    </div>
-                    <div class="info">
-                      <h3>Alexisonfire</h3>
-                      <div class="band-info-spotify-id"></div>
-                    </div>
-                    <div class="bottom">
-                      <a type="button" class="btn btn-spotify btn-sm" href="https://open.spotify.com/artist/53RsXctnNmj9oKXvcbvzI2">Ouça no Spotify!</a>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
-                  <div class="card hovercard">
-                    <div class="cardheader">
-                      <button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>
-                    </div>
-                    <div class="avatar">
-                      <img alt="Architects" src="https://i.scdn.co/image/e9180e17705fa0028a8f12545da9cc9d285f12aa">
-                    </div>
-                    <div class="info">
-                      <h3>Architects</h3>
-                      <div class="band-info-spotify-id">3ZztVuWxHzNpl0THurTFCv </div>
-                    </div>
-                    <div class="bottom">
-                      <button type="button" class="btn btn-spotify btn-sm">Ouça no Spotify!</button>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
-                  <div class="card hovercard">
-                    <div class="cardheader">
-                      <button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>
-                    </div>
-                    <div class="avatar">
-                      <img alt="Slipknot" src="https://i.scdn.co/image/0e8f7d2a392a7e18b72672ae004c98ccf6c72452">
-                    </div>
-                    <div class="info">
-                      <h3>Slipknot</h3>
-                    </div>
-                    <div class="bottom">
-                      <button type="button" class="btn btn-spotify btn-sm">Ouça no Spotify!</button>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
-                  <div class="card hovercard">
-                    <div class="cardheader">
-                      <button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>
-                    </div>
-                    <div class="avatar">
-                      <img alt="System Of A Down" src="https://i.scdn.co/image/3ec25089636b19338120eadd88bef1f0904b9572">
-                    </div>
-                    <div class="info">
-                      <h3>System Of A Down</h3>
-                    </div>
-                    <div class="bottom">
-                      <button type="button" class="btn btn-spotify btn-sm">Ouça no Spotify!</button>
-                    </div>
-                  </div>
-                </div>               
-
               </div>
             </div>
           </div>
@@ -362,21 +293,150 @@
     <!-- End Modal: Calendar -->
     
     <!-- Modal: Discover -->
-    <div class="modal fade" id="modalDiscover" tabindex="-1" role="dialog" aria-labelledby="modalDiscoverLabel" aria-hidden="true">
+    <div class="modal fade" id="modalDiscover" role="dialog" aria-labelledby="modalDiscoverLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">x</button>
             <h4 class="modal-title">Descubra!</h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body modal-cards">
             <div id="content-discover">
-
+              <div>
+                <button type="button" class="btn btn-standard">Atualizar</button>
+              </div>
+              
+              <!-- This will hold the cards -->
+              <div id="dicoverinfo">
+                
+                <div class="discover-row row">
+                  <hr/>
+                  <h4>Porque você gosta de Architects</h4>
+                  <div class="dicover-row-cards">
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
+                      <div class="card hovercard">
+                        <div class="cardheader">
+                        </div>
+                        <div class="avatar">
+                          <img alt="Alexisonfire" src="https://i.scdn.co/image/c19da2e60db12be21e2f5468dbaa8b0dc59ebf6a">
+                        </div>
+                        <div class="info">
+                          <h3>Alexisonfire</h3>
+                          <div class="band-info-spotify-id">53RsXctnNmj9oKXvcbvzI2</div>
+                          <div class="band-info-spotify-url">https://open.spotify.com/artist/53RsXctnNmj9oKXvcbvzI2</div>
+                        </div>
+                        <div class="bottom">
+                          <button type="button" class="btn btn-standard btn-sm">Adicionar!</button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
+                      <div class="card hovercard">
+                        <div class="cardheader">
+                        </div>
+                        <div class="avatar">
+                          <img alt="Alexisonfire" src="https://i.scdn.co/image/c19da2e60db12be21e2f5468dbaa8b0dc59ebf6a">
+                        </div>
+                        <div class="info">
+                          <h3>Alexisonfire</h3>
+                          <div class="band-info-spotify-id">53RsXctnNmj9oKXvcbvzI2</div>
+                          <div class="band-info-spotify-url">https://open.spotify.com/artist/53RsXctnNmj9oKXvcbvzI2</div>
+                        </div>
+                        <div class="bottom">
+                          <button type="button" class="btn btn-standard btn-sm">Adicionar!</button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
+                      <div class="card hovercard">
+                        <div class="cardheader">
+                        </div>
+                        <div class="avatar">
+                          <img alt="Alexisonfire" src="https://i.scdn.co/image/c19da2e60db12be21e2f5468dbaa8b0dc59ebf6a">
+                        </div>
+                        <div class="info">
+                          <h3>Alexisonfire</h3>
+                          <div class="band-info-spotify-id">53RsXctnNmj9oKXvcbvzI2</div>
+                          <div class="band-info-spotify-url">https://open.spotify.com/artist/53RsXctnNmj9oKXvcbvzI2</div>
+                        </div>
+                        <div class="bottom">
+                          <button type="button" class="btn btn-standard btn-sm">Adicionar!</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="discover-row row">
+                  <hr/>
+                  <h4>Porque você gosta de Architects</h4>
+                  <div class="dicover-row-cards">
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
+                      <div class="card hovercard">
+                        <div class="cardheader">
+                        </div>
+                        <div class="avatar">
+                          <img alt="Alexisonfire" src="https://i.scdn.co/image/c19da2e60db12be21e2f5468dbaa8b0dc59ebf6a">
+                        </div>
+                        <div class="info">
+                          <h3>Alexisonfire</h3>
+                          <div class="band-info-spotify-id">53RsXctnNmj9oKXvcbvzI2</div>
+                          <div class="band-info-spotify-url">https://open.spotify.com/artist/53RsXctnNmj9oKXvcbvzI2</div>
+                        </div>
+                        <div class="bottom">
+                          <button type="button" class="btn btn-standard btn-sm">Adicionar!</button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
+                      <div class="card hovercard">
+                        <div class="cardheader">
+                        </div>
+                        <div class="avatar">
+                          <img alt="Alexisonfire" src="https://i.scdn.co/image/c19da2e60db12be21e2f5468dbaa8b0dc59ebf6a">
+                        </div>
+                        <div class="info">
+                          <h3>Alexisonfire</h3>
+                          <div class="band-info-spotify-id">53RsXctnNmj9oKXvcbvzI2</div>
+                          <div class="band-info-spotify-url">https://open.spotify.com/artist/53RsXctnNmj9oKXvcbvzI2</div>
+                        </div>
+                        <div class="bottom">
+                          <button type="button" class="btn btn-standard btn-sm">Adicionar!</button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">
+                      <div class="card hovercard">
+                        <div class="cardheader">
+                        </div>
+                        <div class="avatar">
+                          <img alt="Alexisonfire" src="https://i.scdn.co/image/c19da2e60db12be21e2f5468dbaa8b0dc59ebf6a">
+                        </div>
+                        <div class="info">
+                          <h3>Alexisonfire</h3>
+                          <div class="band-info-spotify-id">53RsXctnNmj9oKXvcbvzI2</div>
+                          <div class="band-info-spotify-url">https://open.spotify.com/artist/53RsXctnNmj9oKXvcbvzI2</div>
+                        </div>
+                        <div class="bottom">
+                          <button type="button" class="btn btn-standard btn-sm">Adicionar!</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- End Modal: Profile -->
+    <!-- End Modal: Bands -->
   </body>
 </html>

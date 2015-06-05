@@ -154,13 +154,12 @@ body.modal-open .main-container{
   margin: 1px;
 }
 
-/* BANDS CSS */
-.modal-bands-content {
+/* CARDS CSS */
+.modal-cards {
   height:80%;
   overflow:auto;
 }
 
-/* CARDS CSS */
 .card {
     padding-top: 20px;
     margin: 10px;
@@ -222,6 +221,10 @@ body.modal-open .main-container{
   display: none;
 }
 
+.band-info-spotify-url {
+  display: none;
+}
+
 /* BANDS SEARCH CSS */
 .result-row {
   min-height: 50px;
@@ -250,4 +253,9 @@ color: white;
 
 .select2-container--classic.select2-container--open .select2-dropdown {
 border-color: #e67e22;
+}
+
+/* DISCOVER CSS */
+.discover-row h4 {
+  text-align: left;
 }
