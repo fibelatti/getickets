@@ -10,27 +10,49 @@ var baseUserData = {
       {
         "fibelatti": {
             "name":"Filipe Belatti",
-            "age":"23",
             "city":"São Paulo",
-            "email":"fibelatti@gmail.com",
+            "email":null,
             "genderTags": null,
             "bands":[],
             "bandNames":[]
         },
         "absilva": {
             "name":"Alexandre Briskieviez",
-            "age":"21",
             "city":"São Paulo",
-            "email":"alexandre_rnr@outlook.com",
+            "email":null,
             "genderTags": null,
             "bands":[],
             "bandNames":[]
         },
         "abalmeida": {
             "name":"Alexandre Bernardo",
-            "age":"22",
             "city":"São Paulo",
-            "email":"abalmeida7@gmail.com",
+            "email":null,
+            "genderTags": null,
+            "bands":[],
+            "bandNames":[]
+        },
+        "laercioag": {
+            "name":"Laércio Guimarães",
+            "city":"Teresina",
+            "email":null,
+            "genderTags": null,
+            "bands":[],
+            "bandNames":[]
+        },
+        "marimb": {
+            "name":"Mariana Martins",
+            "city":"São Paulo",
+            "email":null,
+            "genderTags": null,
+            "bands":[],
+            "bandNames":[]
+        }
+        ,
+        "leo_alima": {
+            "name":"Leonardo Alves",
+            "city":"São Paulo",
+            "email":null,
             "genderTags": null,
             "bands":[],
             "bandNames":[]
@@ -56,6 +78,29 @@ function saveToCookie () {
 }
 
 function login () {
-  $('#nav-username').text('Bem vindo, ' + $('#login-user').val() + '!');
+  loadUserData();
   loggedUsername = $('#login-user').val();
+  
+  if (verifyUser()) {
+    $('#modalLogin').modal('hide');
+    $('#nav-username').text('Bem vindo, ' + sessionUserData.users[loggedUsername].name + '!');
+    loadUserInfo();
+  }
+}
+
+function logout () {
+  $('#nav-username').text('');
+  $('#login-user').val('');
+  $('#modalLogin').modal('show');
+  loggedUsername = null;
+}
+
+function verifyUser () {
+  return sessionUserData.users[loggedUsername] === undefined ? false : true;
+}
+
+function loadUserInfo () {
+  $('#user-info-name').val(sessionUserData.users[loggedUsername].name);
+  $('#user-info-city').val(sessionUserData.users[loggedUsername].city);
+  $('#user-info-username').val(loggedUsername);
 }
