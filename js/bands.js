@@ -46,7 +46,12 @@ function formatArtistSelection (artist) {
 }
 
 function dismissCard () {
-  //ToDo: Remove from User JSON (Spotify ID)
+  var id = $(event.target).closest('.bandcard-item').find('.band-info-spotify-id').text();
+  var index = sessionUserData.users[loggedUsername].bands.indexOf(id);
+  
+  sessionUserData.users[loggedUsername].bands.splice(index, 1);
+  sessionUserData.users[loggedUsername].bandNames.splice(index, 1);
+  saveToCookie();
   
   var target = $(event.target).closest('.bandcard-item');
   
@@ -70,6 +75,7 @@ function addBandCard () {
     '<div class="info">' +
     '<h3>' + artist.name + '</h3>' +
     '<div class="band-info-spotify-id">' + artist.id + '</div>' +
+    '<div class="band-info-spotify-name">' + artist.name + '</div>' +
     '<div class="band-info-spotify-url">' + artist.external_urls.spotify + '</div>' +
     '</div>' +
     '<div class="bottom">' +
@@ -80,17 +86,19 @@ function addBandCard () {
   
   cardContainer.append(cardLayout);
   
-  //ToDo: Add to User JSON (Spotify ID)
+  sessionUserData.users[loggedUsername].bands.push(artist.id);
+  sessionUserData.users[loggedUsername].bandNames.push(artist.name);
+  saveToCookie();
 }
 
 function loadUserBands () {
-  // ToDo: Get user bands from JSON
-  var myBands = "53RsXctnNmj9oKXvcbvzI2,3ZztVuWxHzNpl0THurTFCv,74XFHRwlV6OrjEM0A2NCMF"
-  
+  var myBands = sessionUserData.users[loggedUsername].bands.join();
   var cardLayout;
   var cardContainer = $('#mybandsinfo');
   var imgIndex;
   var requestURL = "https://api.spotify.com/v1/artists/?ids=" + myBands;
+  
+  cardContainer.empty();
   
   $.ajax({
     url: requestURL,
@@ -115,6 +123,7 @@ function loadUserBands () {
           '<div class="info">' +
           '<h3>' + artists[i].name + '</h3>' +
           '<div class="band-info-spotify-id">' + artists[i].id + '</div>' +
+          '<div class="band-info-spotify-name">' + artists[i].name + '</div>' +
           '<div class="band-info-spotify-url">' + artists[i].external_urls.spotify + '</div>' +
           '</div>' +
           '<div class="bottom">' +

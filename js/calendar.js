@@ -38,18 +38,19 @@ function showDayEventsPopover(ref, events) {
 
 function loadUserCalendar () {
   var requestURL, key, myCity, myBands = "", events = {}, eventInfo;
-  
-  // ToDo: Replace this with User Bands
-  var array = ("System Of A Down,Slipknot").split(',');
+  var array = sessionUserData.users[loggedUsername].bandNames;
+
+  $('.responsive-calendar').responsiveCalendar('clearAll');
   
   for (var i = 0; i < array.length; i++) {
     myBands += "artists[]=" + array[i].split(' ').join('%20') + "&";
   }
   
-  // ToDo: Replace this with User City
-  myCity = "São%20Paulo" + ",Brasil"
+  myCity = sessionUserData.users[loggedUsername].city + ",Brasil"
   
   requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&format=json&app_id=getickets";
+  
+  console.log(requestURL);
   
   $.ajax({
     url: requestURL,

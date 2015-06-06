@@ -1,22 +1,20 @@
 function loadUserDiscover () {
-  // ToDo: Get user bands from JSON
-  var myBands = "53RsXctnNmj9oKXvcbvzI2,3ZztVuWxHzNpl0THurTFCv,74XFHRwlV6OrjEM0A2NCMF";
-  var myBandsNames = "Alexisonfire,Architects,Paramore";
-  
   var cardLayout;
   var cardContainer = $('#dicoverinfo');
   var imgIndex;
   var randIndex, randIndex2;
   var requestURLRelatedArtists;
   
-  var arrayMyBands = myBands.split(',');
-  var arrayMyBandsNames = myBandsNames.split(',');
+  var arrayMyBands = sessionUserData.users[loggedUsername].bands;
+  var arrayMyBandsNames = sessionUserData.users[loggedUsername].bandNames
   var arrayBaseArtists = [];
   var arrayRelatedArtists = [];
   
   var countDisplayed = 0;
-
-  while (countDisplayed < 3) {
+  
+  cardContainer.empty();
+  
+  while (countDisplayed < 3 && countDisplayed < arrayMyBands.length) {
     randIndex = parseInt(Math.random() * arrayMyBands.length, 10);
     if (arrayBaseArtists.indexOf(arrayMyBands[randIndex]) == -1) {
       arrayBaseArtists.push(arrayMyBands[randIndex]);
@@ -38,7 +36,7 @@ function loadUserDiscover () {
           var countRelated = 0;
           var imgIndex;
           
-          while (countRelated < 3) {
+          while (countRelated < 3 && countRelated < artists.length) {
             randIndex2 = parseInt(Math.random() * artists.length, 10);
             
             if (arrayRelatedArtists.indexOf(artists[randIndex2].id) == -1 && arrayMyBands.indexOf(artists[randIndex2].id) == -1) {
@@ -58,10 +56,11 @@ function loadUserDiscover () {
                 '<div class="info">' +
                 '<h3>' + artists[randIndex2].name + '</h3>' +
                 '<div class="band-info-spotify-id">' + artists[randIndex2].id + '</div>' +
+                '<div class="band-info-spotify-name">' + artists[randIndex2].name + '</div>' +
                 '<div class="band-info-spotify-url">' + artists[randIndex2].external_urls.spotify + '</div>' +
                 '</div>' +
                 '<div class="bottom">' +
-                '<button type="button" class="btn btn-standard btn-sm">Adicionar!</button>' + //ToDo: onclick
+                '<button type="button" class="btn btn-standard btn-sm" onclick="saveToMyBands();">Adicionar!</button>' +
                 '</div>' +
                 '</div>' +
                 '</div>';
@@ -83,4 +82,14 @@ function loadUserDiscover () {
 function refreshUserDiscover () {
   $('#dicoverinfo').empty();
   loadUserDiscover();
+}
+
+function saveToMyBands () {
+  var id = $(event.target).closest('.bandcard-item').find('.band-info-spotify-id').text();
+  var name = $(event.target).closest('.bandcard-item').find('.band-info-spotify-name').text()
+  
+  sessionUserData.users[loggedUsername].bands.push(id);
+  sessionUserData.users[loggedUsername].bandNames.push(name);
+  saveToCookie();
+  refreshUserDiscover();
 }

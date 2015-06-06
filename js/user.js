@@ -5,37 +5,54 @@ ToDo
 	-Forgot Password Field/Button
 */
 
-var userData;
+var baseUserData = {
+    "users":
+      {
+        "fibelatti": {
+            "name":"Filipe Belatti",
+            "age":"23",
+            "city":"São Paulo",
+            "email":"fibelatti@gmail.com",
+            "genderTags": null,
+            "bands":[],
+            "bandNames":[]
+        },
+        "absilva": {
+            "name":"Alexandre Briskieviez",
+            "age":"21",
+            "city":"São Paulo",
+            "email":"alexandre_rnr@outlook.com",
+            "genderTags": null,
+            "bands":[],
+            "bandNames":[]
+        },
+        "abalmeida": {
+            "name":"Alexandre Bernardo",
+            "age":"22",
+            "city":"São Paulo",
+            "email":"abalmeida7@gmail.com",
+            "genderTags": null,
+            "bands":[],
+            "bandNames":[]
+        }
+      }
+  };
+
+var sessionUserData;
 var loggedUsername;
 
 function loadUserData () {
-  if ($.cookie("user-data") !== undefined) {
-    var cookieData = JSON.parse($.cookie("user-data"));
-
-    userData = cookieData;
+  if ($.cookie("getickets-user-data") !== undefined) {
+    var cookieData = JSON.parse($.cookie("getickets-user-data"));
+    
+    sessionUserData = cookieData;
   } else {
-    userData = {
-        "name":"Filipe Belatti",
-        "age":"",
-        "city":"São Paulo",
-        "email":"fibelatti@gmail.com",
-        "username":"fibelatti",
-        "genderTags":"rock,metal",
-        "bands":["53RsXctnNmj9oKXvcbvzI2","3ZztVuWxHzNpl0THurTFCv","74XFHRwlV6OrjEM0A2NCMF"],
-        "bandNames":["Alexisonfire","Architects","Paramore"]
-    };
+    sessionUserData = baseUserData;
   }
-  
-  console.log(userData);
 }
 
 function saveToCookie () {
-  $.cookie("user-data", JSON.stringify(userData), { expires: 365 });
-}
-
-function getFromCookie () {
-  userData = JSON.parse($.cookie("user-data"));
-  console.log(userData);
+  $.cookie("getickets-user-data", JSON.stringify(sessionUserData), { expires: 365 });
 }
 
 function login () {

@@ -217,11 +217,7 @@ body.modal-open .main-container{
   margin-right: 5px;
 }
 
-.band-info-spotify-id {
-  display: none;
-}
-
-.band-info-spotify-url {
+.band-info-spotify-id, .band-info-spotify-name, .band-info-spotify-url {
   display: none;
 }
 

@@ -58,11 +58,9 @@
         
         // Show Login
         $('#modalLogin').modal('show');
-        
+
+        // ToDo: move this to login
         loadUserData();
-        loadUserCalendar();
-        loadUserBands();
-        loadUserDiscover();
       });
     </script>
     
@@ -112,15 +110,15 @@
           </div>
 
           <div class="col-sm-12 col-md-12 col-lg-3">
-            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalBands">Minhas Bandas</button>
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalBands" onclick="loadUserBands();">Minhas Bandas</button>
           </div>
 
           <div class="col-sm-12 col-md-12 col-lg-3">
-            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalCalendar">Calendário</button>
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalCalendar" onclick="loadUserCalendar();">Calendário</button>
           </div>
           
           <div class="col-sm-12 col-md-12 col-lg-3">
-            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalDiscover">Descubra!</button>
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalDiscover" onclick="loadUserDiscover();">Descubra!</button>
           </div>
         </div>
       </div>
