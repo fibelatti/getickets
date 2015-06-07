@@ -12,7 +12,6 @@ var baseUserData = {
             "name":"Filipe Belatti",
             "city":"São Paulo",
             "email":null,
-            "genderTags": null,
             "bands":[],
             "bandNames":[]
         },
@@ -20,7 +19,6 @@ var baseUserData = {
             "name":"Alexandre Briskieviez",
             "city":"São Paulo",
             "email":null,
-            "genderTags": null,
             "bands":[],
             "bandNames":[]
         },
@@ -28,7 +26,6 @@ var baseUserData = {
             "name":"Alexandre Bernardo",
             "city":"São Paulo",
             "email":null,
-            "genderTags": null,
             "bands":[],
             "bandNames":[]
         },
@@ -36,7 +33,6 @@ var baseUserData = {
             "name":"Laércio Guimarães",
             "city":"Teresina",
             "email":null,
-            "genderTags": null,
             "bands":[],
             "bandNames":[]
         },
@@ -44,16 +40,20 @@ var baseUserData = {
             "name":"Mariana Martins",
             "city":"São Paulo",
             "email":null,
-            "genderTags": null,
             "bands":[],
             "bandNames":[]
-        }
-        ,
+        },
         "leo_alima": {
             "name":"Leonardo Alves",
             "city":"São Paulo",
             "email":null,
-            "genderTags": null,
+            "bands":[],
+            "bandNames":[]
+        },
+        "renanrbr": {
+            "name":"Renan Ribeiro",
+            "city":"São Paulo",
+            "email":null,
             "bands":[],
             "bandNames":[]
         }
@@ -74,7 +74,7 @@ function loadUserData () {
 }
 
 function saveToCookie () {
-  $.cookie("getickets-user-data", JSON.stringify(sessionUserData), { expires: 365 });
+  $.cookie("getickets-user-data", JSON.stringify(sessionUserData), { expires: 1 });
 }
 
 function login () {
@@ -86,6 +86,8 @@ function login () {
     $('#nav-username').text('Bem vindo, ' + sessionUserData.users[loggedUsername].name + '!');
     loadUserInfo();
   }
+  
+  return false;
 }
 
 function logout () {
@@ -97,10 +99,4 @@ function logout () {
 
 function verifyUser () {
   return sessionUserData.users[loggedUsername] === undefined ? false : true;
-}
-
-function loadUserInfo () {
-  $('#user-info-name').val(sessionUserData.users[loggedUsername].name);
-  $('#user-info-city').val(sessionUserData.users[loggedUsername].city);
-  $('#user-info-username').val(loggedUsername);
 }

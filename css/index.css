@@ -56,6 +56,10 @@ a{
   margin-left: 10px;
 }
 
+.btn:focus {
+  outline: none;
+}
+
 .btn-standard{
   color: #fff;
   background-color: #e67e22;
@@ -106,6 +110,18 @@ body.modal-open .main-container{
   grayscale(50%);
 }
 
+.modal:before {
+  display: inline-block;
+  vertical-align: middle;
+  content: " ";
+  height: 100%;
+}
+
+.modal-dialog {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .row-margin{
   margin: 20px;
 }
@@ -142,10 +158,6 @@ body.modal-open .main-container{
 
 .badge-standard {
   background-color: #e67e22;
-}
-
-.bootstrap-tagsinput {
-  width: 100%;
 }
 
 .label-info {
@@ -206,6 +218,10 @@ body.modal-open .main-container{
     -moz-border-radius: 50%;
     border-radius: 50%;
     border: 5px solid rgba(255,255,255,0.5);
+}
+
+.card.hovercard .info {
+    height: 65px;
 }
 
 .card.hovercard .bottom {

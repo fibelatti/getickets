@@ -14,7 +14,6 @@
     
     <!-- Third Party CSS -->
     <link href="css/responsive-calendar.css" rel="stylesheet">
-    <link href="css/bootstrap-tagsinput.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet">
     
     <!-- Custom CSS -->
@@ -27,8 +26,6 @@
     <!-- Third Party js files -->
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/third-party/responsive-calendar.js"></script>
-    <script type="text/javascript" src="js/third-party/bootstrap-tagsinput.js"></script>
-    <script type="text/javascript" src="js/third-party/typeahead.bundle.js"></script>
     <script type="text/javascript" src="js/third-party/select2.js"></script>
     
     <!-- js -->
@@ -53,6 +50,7 @@
         $('body').css('background-image', 'url('+backgrounds[randIndex]+')');
         
         // Set up functionalities
+        setUpCities();
         setUpCalendar();
         setUpBandsSearch();
         
@@ -75,9 +73,9 @@
             <h4 class="modal-title">Login em GeTickets!</h4>
           </div>
           <div class="modal-body">
-            <form>
+            <form onsubmit="return login();">
               <div class="form-group">
-                <input type="email" class="form-control" id="login-user" placeholder="Usuário">
+                <input type="username" class="form-control" id="login-user" placeholder="Usuário">
               </div>
               <!--
               <div class="form-group">
@@ -107,20 +105,20 @@
       <!-- Menu -->
       <div id="main-menu">
         <div class="row main-menu-row">
-          <div class="col-sm-12 col-md-12 col-lg-3">
-            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalProfile">Meu Perfil</button>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalProfile" data-keyboard="false" data-backdrop="static">Meu Perfil</button>
           </div>
 
-          <div class="col-sm-12 col-md-12 col-lg-3">
-            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalBands" onclick="loadUserBands();">Minhas Bandas</button>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalBands" data-keyboard="false" data-backdrop="static" onclick="loadUserBands();">Minhas Bandas</button>
           </div>
 
-          <div class="col-sm-12 col-md-12 col-lg-3">
-            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalCalendar" onclick="loadUserCalendar();">Calendário</button>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalCalendar" data-keyboard="false" data-backdrop="static" onclick="loadUserCalendar();">Calendário</button>
           </div>
           
-          <div class="col-sm-12 col-md-12 col-lg-3">
-            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalDiscover" onclick="loadUserDiscover();">Descubra!</button>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+            <button type="button" class="btn btn-standard btn-lg btn-main-menu" data-toggle="modal" data-target="#modalDiscover" data-keyboard="false" data-backdrop="static" onclick="loadUserDiscover();">Descubra!</button>
           </div>
         </div>
       </div>
@@ -140,15 +138,7 @@
           <div class="modal-body">
             <div id="content-profile">
               <div class="row">
-                <div class="col-sm-3 col-md-3">
-                  <div class="text-center">
-                    <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-                    <br>
-                    <br>
-                    <input type="file" class="form-control">
-                  </div>
-                </div>
-                <div class="col-sm-9 col-md-9 personal-info">
+                <div class="col-sm-12 col-md-12 personal-info">
                   <form class="form-horizontal" role="form">
                     <div class="form-group">
                       <label class="col-lg-3 control-label">Nome:</label>
@@ -160,6 +150,10 @@
                       <label class="col-lg-3 control-label">Cidade:</label>
                       <div class="col-lg-8">
                         <input id="user-info-city" class="form-control" type="text" value="">
+                        <!--
+                        <select id="user-info-city" class="form-control">
+                        </select>
+                        -->
                       </div>
                     </div>
                     <div class="form-group">
@@ -178,12 +172,6 @@
                       <label class="col-md-3 control-label">Senha:</label>
                       <div class="col-md-8">
                         <input id="user-info-password" class="form-control" type="password" value="">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-lg-3 control-label">Gêneros:</label>
-                      <div class="col-lg-8">
-                        <input id="user-info-gendertags" class="form-control" type="text" value="" data-role="tagsinput">
                       </div>
                     </div>
                     <div class="form-group">
@@ -287,6 +275,27 @@
       </div>
     </div>
     <!-- End Modal: Calendar -->
+    
+    <!-- Modal: Day Events -->
+    <div class="modal fade modal-day-events" id="modalDayEvents" tabindex="-1" role="dialog" aria-labelledby="dayEventsLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Eventos do Dia</h4>
+          </div>
+          <div class="modal-body">
+            <!-- This will hold info about day events -->
+            <div id="dayeventsinfo">
+              <div>
+                <a type="button" class="btn btn-standard btn-xs" href="" target= "_blank">GeTickets!</a> System of a Down
+              </div>
+              <br>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <!-- Modal: Discover -->
     <div class="modal fade" id="modalDiscover" role="dialog" aria-labelledby="modalDiscoverLabel" aria-hidden="true">
