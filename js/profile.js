@@ -1,7 +1,9 @@
 function loadUserInfo () {
+  $('#user-info-username').val(loggedUsername);
+  $('#user-info-password').val(sessionUserData.users[loggedUsername].password);
   $('#user-info-name').val(sessionUserData.users[loggedUsername].name);
   $('#user-info-city').val(sessionUserData.users[loggedUsername].city);
-  $('#user-info-username').val(loggedUsername);
+  $('#user-info-email').val(sessionUserData.users[loggedUsername].email);
 }
 
 function setUpCities () {
@@ -17,4 +19,36 @@ function setUpCities () {
     data: data
   });
   */
+}
+
+function saveUserProfile () {
+  if (sessionUserData.users[loggedUsername] === undefined) sessionUserData.users[loggedUsername] = {};
+  
+  sessionUserData.users[loggedUsername].password = $('#user-info-password').val();
+  sessionUserData.users[loggedUsername].name = $('#user-info-name').val();
+  sessionUserData.users[loggedUsername].city = $('#user-info-city').val();
+  sessionUserData.users[loggedUsername].email = $('#user-info-email').val();
+
+  if (isNewUser == true) {
+    sessionUserData.users[loggedUsername].bands = [];
+    sessionUserData.users[loggedUsername].bandNames = [];
+    
+    $('#closeProfileModal').show();
+    
+    $('#nav-username').text('Bem vindo, ' + sessionUserData.users[loggedUsername].name + '!');
+    loadUserInfo();
+  }
+  
+  saveToCookie();
+
+  $('#modalProfile').modal('hide');
+
+  return false;
+}
+
+function clearFields () {
+  $('#user-info-password').val('');
+  $('#user-info-name').val('');
+  $('#user-info-city').val('');
+  $('#user-info-email').val('');
 }

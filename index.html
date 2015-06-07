@@ -50,6 +50,8 @@
         $('body').css('background-image', 'url('+backgrounds[randIndex]+')');
         
         // Set up functionalities
+        loadUserData();
+        
         setUpCities();
         setUpCalendar();
         setUpBandsSearch();
@@ -73,18 +75,18 @@
             <h4 class="modal-title">Login em GeTickets!</h4>
           </div>
           <div class="modal-body">
-            <form onsubmit="return login();">
+            <form id="login-form" onsubmit="return login();">
               <div class="form-group">
                 <input type="username" class="form-control" id="login-user" placeholder="Usuário">
               </div>
-              <!--
               <div class="form-group">
                 <input type="password" class="form-control" id="login-pwd" placeholder="Senha">
               </div>
-              -->
-              <button type="button" class="btn btn-standard" onclick="login();">Entrar</button>
-              <p><a href="#">Novo cadastro</a></p>
+              <button type="button" class="btn btn-standard" type="submit" onclick="login();">Entrar</button>
+              <button type="button" class="btn btn-standard" onclick="createUser();">Novo Cadastro</button>
             </form>
+            <div id="modalAlert">
+            </div>
           </div>
         </div>
       </div>
@@ -132,24 +134,36 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">x</button>
+            <button id="closeProfileModal" type="button" class="close" data-dismiss="modal">x</button>
             <h4 class="modal-title">Meu Perfil</h4>
           </div>
           <div class="modal-body">
             <div id="content-profile">
               <div class="row">
                 <div class="col-sm-12 col-md-12 personal-info">
-                  <form class="form-horizontal" role="form">
+                  <form class="form-horizontal" role="form" onsubmit="return saveUserProfile();">
                     <div class="form-group">
-                      <label class="col-lg-3 control-label">Nome:</label>
-                      <div class="col-md-8">
-                        <input id="user-info-name" class="form-control" type="text" value="">
+                      <label class="col-md-3 control-label">Usuário:</label>
+                      <div class="col-md-9">
+                        <input id="user-info-username" class="form-control" type="username" value="" disabled>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-lg-3 control-label">Cidade:</label>
-                      <div class="col-lg-8">
-                        <input id="user-info-city" class="form-control" type="text" value="">
+                      <label class="col-md-3 control-label">Senha:</label>
+                      <div class="col-md-9">
+                        <input id="user-info-password" class="form-control" type="password" value="" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Nome:</label>
+                      <div class="col-md-9">
+                        <input id="user-info-name" class="form-control" type="text" value="" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Cidade:</label>
+                      <div class="col-lg-9">
+                        <input id="user-info-city" class="form-control" type="text" value="" required>
                         <!--
                         <select id="user-info-city" class="form-control">
                         </select>
@@ -157,27 +171,14 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-lg-3 control-label">Email:</label>
-                      <div class="col-lg-8">
-                        <input id="user-info-email" class="form-control" type="text" value="">
+                      <label class="col-md-3 control-label">Email:</label>
+                      <div class="col-md-9">
+                        <input id="user-info-email" class="form-control" type="email" value="" required>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-md-3 control-label">Usuário:</label>
-                      <div class="col-md-8">
-                        <input id="user-info-username" class="form-control" type="text" value="">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-md-3 control-label">Senha:</label>
-                      <div class="col-md-8">
-                        <input id="user-info-password" class="form-control" type="password" value="">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-md-3 control-label"></label>
-                      <div class="col-md-8">
-                        <input type="button" class="btn btn-standard" value="Salvar">
+                      <div class="col-md-12">
+                        <input id="btn-save-user-data" type="submit" class="btn btn-standard" value="Salvar">
                       </div>
                     </div>
                   </form>
@@ -232,42 +233,46 @@
           <div class="modal-body">
             <div id="content-calendar">
               <div class="row">
-                <!-- Responsive calendar - START -->
-                <div class="responsive-calendar">
-                  <div class="controls">
-                    <div class="col-xs-1 col-sm-1 col-lg-1">
-                      <button type="button" class="btn btn-standard btn-sm" data-go="prev">
-                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                      </button>
+                <div id="col-calendar" class="col-md-9">
+                  <!-- Responsive calendar - START -->
+                  <div class="responsive-calendar">
+                    <div class="controls">
+                      <div class="col-xs-1 col-sm-1 col-lg-1">
+                        <button type="button" class="btn btn-standard btn-sm" data-go="prev">
+                          <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                        </button>
+                      </div>
+                      <div class="col-xs-9 col-sm-10 col-lg-10">
+                        <h4>
+                          <span data-head-year></span> 
+                          <span data-head-month></span>
+                        </h4>
+                      </div>
+                      <div class="col-xs-1 col-sm-1 col-lg-1">
+                        <button type="button" class="btn btn-standard btn-sm" data-go="next">
+                          <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                        </button>
+                      </div>
                     </div>
-                    <div class="col-xs-9 col-sm-10 col-lg-10">
-                      <h4>
-                        <span data-head-year></span> 
-                        <span data-head-month></span>
-                      </h4>
+                    <br>
+                    <hr/>
+                    <div class="day-headers">
+                      <div class="day header">Seg</div>
+                      <div class="day header">Ter</div>
+                      <div class="day header">Qua</div>
+                      <div class="day header">Qui</div>
+                      <div class="day header">Sex</div>
+                      <div class="day header">Sab</div>
+                      <div class="day header">Dom</div>
                     </div>
-                    <div class="col-xs-1 col-sm-1 col-lg-1">
-                      <button type="button" class="btn btn-standard btn-sm" data-go="next">
-                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                      </button>
+                    <div class="days" data-group="days">
+                      <!-- the place where days will be generated -->
                     </div>
                   </div>
-                  <br>
-                  <hr/>
-                  <div class="day-headers">
-                    <div class="day header">Seg</div>
-                    <div class="day header">Ter</div>
-                    <div class="day header">Qua</div>
-                    <div class="day header">Qui</div>
-                    <div class="day header">Sex</div>
-                    <div class="day header">Sab</div>
-                    <div class="day header">Dom</div>
-                  </div>
-                  <div class="days" data-group="days">
-                    <!-- the place where days will be generated -->
-                  </div>
+                  <!-- Responsive calendar - END -->
                 </div>
-                <!-- Responsive calendar - END -->
+                <div id="col-day-events" class="col-md-3">
+                </div>
               </div>
             </div>
           </div>
@@ -275,27 +280,6 @@
       </div>
     </div>
     <!-- End Modal: Calendar -->
-    
-    <!-- Modal: Day Events -->
-    <div class="modal fade modal-day-events" id="modalDayEvents" tabindex="-1" role="dialog" aria-labelledby="dayEventsLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Eventos do Dia</h4>
-          </div>
-          <div class="modal-body">
-            <!-- This will hold info about day events -->
-            <div id="dayeventsinfo">
-              <div>
-                <a type="button" class="btn btn-standard btn-xs" href="" target= "_blank">GeTickets!</a> System of a Down
-              </div>
-              <br>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     
     <!-- Modal: Discover -->
     <div class="modal fade" id="modalDiscover" role="dialog" aria-labelledby="modalDiscoverLabel" aria-hidden="true">
