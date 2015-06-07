@@ -61,34 +61,39 @@ function dismissCard () {
 function addBandCard () {
   var cardContainer = $('#mybandsinfo');
   var artist = $(".bands-ajax").find(":selected").data().data;
+  var arrayMyBands = sessionUserData.users[loggedUsername].bands;
   
-  var imgIndex = artist.images.length - 2;
+  if (arrayMyBands.indexOf(artist.id) == -1) {
+    var imgIndex = isMobile == false ? artist.images.length - 1 : artist.images.length - 2;
   
-  var cardLayout = '<div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">' +
-    '<div class="card hovercard">' +
-    '<div class="cardheader">' +
-    '<button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>' +
-    '</div>' +
-    '<div class="avatar">' +
-    '<img alt="' + artist.name + '" src="' + artist.images[imgIndex].url + '">' +
-    '</div>' +
-    '<div class="info">' +
-    '<h3>' + artist.name + '</h3>' +
-    '<div class="band-info-spotify-id">' + artist.id + '</div>' +
-    '<div class="band-info-spotify-name">' + artist.name + '</div>' +
-    '<div class="band-info-spotify-url">' + artist.external_urls.spotify + '</div>' +
-    '</div>' +
-    '<div class="bottom">' +
-    '<a type="button" class="btn btn-spotify btn-sm" href="' + artist.external_urls.spotify + '">Ouça no Spotify!</a>' +
-    '</div>' +
-    '</div>' +
-    '</div>'
+    var cardLayout = '<div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">' +
+      '<div class="card hovercard">' +
+      '<div class="cardheader">' +
+      '<button type="button" class="close bandcard-close-button" onclick="dismissCard()">x</button>' +
+      '</div>' +
+      '<div class="avatar">' +
+      '<img alt="' + artist.name + '" src="' + artist.images[imgIndex].url + '">' +
+      '</div>' +
+      '<div class="info">' +
+      '<h3>' + artist.name + '</h3>' +
+      '<div class="band-info-spotify-id">' + artist.id + '</div>' +
+      '<div class="band-info-spotify-name">' + artist.name + '</div>' +
+      '<div class="band-info-spotify-url">' + artist.external_urls.spotify + '</div>' +
+      '</div>' +
+      '<div class="bottom">' +
+      '<a type="button" class="btn btn-spotify btn-sm" href="' + artist.external_urls.spotify + '" target="_blank">Ouça no Spotify!</a>' +
+      '</div>' +
+      '</div>' +
+      '</div>'
+
+    cardContainer.append(cardLayout);
+
+    sessionUserData.users[loggedUsername].bands.push(artist.id);
+    sessionUserData.users[loggedUsername].bandNames.push(artist.name);
+    saveToCookie();
+  }
   
-  cardContainer.append(cardLayout);
-  
-  sessionUserData.users[loggedUsername].bands.push(artist.id);
-  sessionUserData.users[loggedUsername].bandNames.push(artist.name);
-  saveToCookie();
+  $(".bands-ajax").select2("val", "");
 }
 
 function loadUserBands () {
@@ -107,10 +112,18 @@ function loadUserBands () {
     success: function(resultData) {
       var artists = resultData.artists;
       
+      artists.sort(function(a, b) {
+        var textA = a.name.toUpperCase();
+        var textB = b.name.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      });
+      
       for (var i = 0; i < artists.length; i++) {
         //imgIndex = artists[i].images.length - 1;
         
-        imgIndex = artists[i].images.length >= 1 ? 0 : -1;
+        //imgIndex = artists[i].images.length >= 1 ? 0 : -1;
+        
+        imgIndex = isMobile == true ? artists[i].images.length - 1 : artists[i].images.length - 2;
         
         cardLayout = '<div class="col-xs-12 col-sm-6 col-md-4 bandcard-item">' +
           '<div class="card hovercard">' +
@@ -127,7 +140,7 @@ function loadUserBands () {
           '<div class="band-info-spotify-url">' + artists[i].external_urls.spotify + '</div>' +
           '</div>' +
           '<div class="bottom">' +
-          '<a type="button" class="btn btn-spotify btn-sm" href="' + artists[i].external_urls.spotify + '">Ouça no Spotify!</a>' +
+          '<a type="button" class="btn btn-spotify btn-sm" href="' + artists[i].external_urls.spotify + '" target="_blank">Ouça no Spotify!</a>' +
           '</div>' +
           '</div>' +
           '</div>'
