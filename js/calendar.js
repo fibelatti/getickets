@@ -3,36 +3,30 @@ function setUpCalendar() {
     translateMonths : ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
     monthChangeAnimation : false,
     events: {},
-    onActiveDayClick: function(events) { showDayEventsPopover(this, events);}
+    onActiveDayClick: function(events) { showDayEvents(this, events);}
   });
 }
 
-function showDayEventsPopover(ref, events) {
-  //$('#modalDayEvents').modal('show');
-  var thisDayEvent, key;
+function showDayEvents(ref, events) {
+  var thisDayEvent, key, dayFormatted, str;
             
   key = $(ref).data('year') + '-' + addLeadingZero($(ref).data('month')) + '-' + addLeadingZero($(ref).data('day'));
 
   thisDayEvent = events[key];
   
-  $(ref).popover({
-    html : true,
-    placement : 'top',
-    trigger : 'click',
-    container: 'body',
-    title : 'Eventos do dia',
-    content : function () {
-      var str = '<div>';
+  $('#col-day-events').empty();
+  
+  dayFormatted = addLeadingZero($(ref).data('day')) + '/' + addLeadingZero($(ref).data('month')) + '/' + $(ref).data('year');
+  
+  str = '<div><h4>Eventos do Dia ' + dayFormatted + '</h4>';
       
-      for (i = 0; i < thisDayEvent.dayEvents.length; i++) {
-        str += '<div><a type="button" class="btn btn-standard btn-xs" href="' + thisDayEvent.dayEvents[i].ticketURL + '" target= "_blank">GeTickets!</a>  ' + thisDayEvent.dayEvents[i].name + '</div><br>';
-      }
-      
-      str += '</div>';
-      
-      return str;
-    }
-  });
+  for (i = 0; i < thisDayEvent.dayEvents.length; i++) {
+    str += '<div><a type="button" class="btn btn-standard btn-xs" href="' + thisDayEvent.dayEvents[i].ticketURL + '" target= "_blank">GeTickets!</a>  ' + thisDayEvent.dayEvents[i].name + '</div><hr/>';
+  }
+
+  str += '</div>';
+  
+  $('#col-day-events').append(str);
 }
 
 function loadUserCalendar () {
@@ -40,6 +34,7 @@ function loadUserCalendar () {
   var array = sessionUserData.users[loggedUsername].bandNames;
 
   $('.responsive-calendar').responsiveCalendar('clearAll');
+  $('#col-day-events').empty();
   
   for (var i = 0; i < array.length; i++) {
     myBands += "artists[]=" + array[i].split(' ').join('%20') + "&";
@@ -48,7 +43,7 @@ function loadUserCalendar () {
   myCity = sessionUserData.users[loggedUsername].city + ",Brasil"
   
   requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&format=json&app_id=getickets";
-
+  
   $.ajax({
     url: requestURL,
     type: "GET",
@@ -58,7 +53,8 @@ function loadUserCalendar () {
       for (var i = 0; i < resultData.length; i++) {
         key = resultData[i].datetime.substring(0, 10);
         
-        events[key] = {};
+        if (events[key] === undefined) events[key] = {};
+        
         events[key].badgeClass = "badge-standard";
         
         for (var j = 0; j < resultData[i].artists.length; j++) {
