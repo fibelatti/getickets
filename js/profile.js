@@ -11,7 +11,7 @@ function loadUserInfo () {
 }
 
 function saveUserProfile () {
-if (sessionUserData.users[loggedUsername] === undefined) sessionUserData.users[loggedUsername] = {};
+  if (sessionUserData.users[loggedUsername] === undefined) sessionUserData.users[loggedUsername] = {};
   
   sessionUserData.users[loggedUsername].password = $('#user-info-password').val();
   sessionUserData.users[loggedUsername].name = $('#user-info-name').val();
