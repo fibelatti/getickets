@@ -66,7 +66,7 @@ function shakeForm(objId) {
 function createUser () {
   loggedUsername = $('#login-user').val();
   
-  if (verifyUsernameAvailability(loggedUsername)) {
+  if (verifyUsernameAvailability(loggedUsername) && loggedUsername != "") {
     isNewUser = true;
     $('#modalLogin').modal('hide');
     $('#modalProfile').modal({
