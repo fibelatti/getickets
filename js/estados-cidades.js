@@ -1,4 +1,4 @@
-{
+var jsonEstados = {
   "estados": [
     {
       "sigla": "AC",

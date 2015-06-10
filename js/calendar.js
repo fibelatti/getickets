@@ -14,7 +14,7 @@ function showDayEvents(ref, events) {
 
   thisDayEvent = events[key];
   
-  $('#col-day-events').empty();
+  $('#day-events-info').empty();
   
   dayFormatted = addLeadingZero($(ref).data('day')) + '/' + addLeadingZero($(ref).data('month')) + '/' + $(ref).data('year');
   
@@ -26,7 +26,7 @@ function showDayEvents(ref, events) {
 
   str += '</div>';
   
-  $('#col-day-events').append(str);
+  $('#day-events-info').append(str);
 }
 
 function loadUserCalendar () {
@@ -34,44 +34,47 @@ function loadUserCalendar () {
   var array = sessionUserData.users[loggedUsername].bandNames;
 
   $('.responsive-calendar').responsiveCalendar('clearAll');
-  $('#col-day-events').empty();
+  $('#day-events-info').empty();
   
   for (var i = 0; i < array.length; i++) {
     myBands += "artists[]=" + array[i].split(' ').join('%20') + "&";
   }
   
-  myCity = sessionUserData.users[loggedUsername].city + ",Brasil"
+  if (myBands != "" ) {
+    myCity = sessionUserData.users[loggedUsername].city + ",Brasil"
   
-  requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&format=json&app_id=getickets";
-  
-  $.ajax({
-    url: requestURL,
-    type: "GET",
-    dataType: 'jsonp',
-    cache: true,
-    success: function(resultData) {
-      for (var i = 0; i < resultData.length; i++) {
-        key = resultData[i].datetime.substring(0, 10);
-        
-        if (events[key] === undefined) events[key] = {};
-        
-        events[key].badgeClass = "badge-standard";
-        
-        for (var j = 0; j < resultData[i].artists.length; j++) {
-          events[key].number = events[key].number === undefined ? 1 : events[key].number + 1;
-          
-          if (events[key].dayEvents === undefined || events[key].dayEvents.length == 0) events[key].dayEvents = [];
-          
-          eventInfo = {};
-          eventInfo.name = resultData[i].artists[j].name;
-          eventInfo.ticketURL = resultData[i].ticket_url;
+    requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&format=json&app_id=getickets";
 
-          events[key].dayEvents.push(eventInfo);
+    $.ajax({
+      url: requestURL,
+      type: "GET",
+      dataType: 'jsonp',
+      cache: true,
+      success: function(resultData) {
+        for (var i = 0; i < resultData.length; i++) {
+          key = resultData[i].datetime.substring(0, 10);
+
+          if (events[key] === undefined) events[key] = {};
+
+          events[key].badgeClass = "badge-standard";
+
+          for (var j = 0; j < resultData[i].artists.length; j++) {
+            events[key].number = events[key].number === undefined ? 1 : events[key].number + 1;
+
+            if (events[key].dayEvents === undefined || events[key].dayEvents.length == 0) events[key].dayEvents = [];
+
+            eventInfo = {};
+            eventInfo.name = resultData[i].artists[j].name;
+            eventInfo.ticketURL = resultData[i].ticket_url;
+
+            events[key].dayEvents.push(eventInfo);
+          }
         }
-      }
-      
-      $('.responsive-calendar').responsiveCalendar('edit', events);
-    },
-    timeout: 120000
-  });
+
+        $('.responsive-calendar').responsiveCalendar('edit', events);
+      },
+      timeout: 120000
+    });
+  
+  }
 }
