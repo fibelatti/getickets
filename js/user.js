@@ -17,7 +17,7 @@ function loadUserData () {
 }
 
 function saveToCookie () {
-  $.cookie("getickets-user-data", JSON.stringify(sessionUserData), { expires: 1 });
+  $.cookie("getickets-user-data", JSON.stringify(sessionUserData), { expires: 365 });
 }
 
 function login () {
