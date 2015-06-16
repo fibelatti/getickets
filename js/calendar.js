@@ -21,7 +21,7 @@ function showDayEvents(ref, events) {
   str = '<div><h4>Eventos do Dia ' + dayFormatted + '</h4>';
       
   for (i = 0; i < thisDayEvent.dayEvents.length; i++) {
-    str += '<div><a type="button" class="btn btn-standard btn-xs" href="' + thisDayEvent.dayEvents[i].ticketURL + '" target= "_blank">GeTickets!</a>  ' + thisDayEvent.dayEvents[i].name + '</div><hr/>';
+    str += '<div><a type="button" class="btn btn-standard btn-xs" href="' + thisDayEvent.dayEvents[i].ticketURL + '" target= "_blank">GeTickets!</a>  ' + thisDayEvent.dayEvents[i].name + ' (' + thisDayEvent.dayEvents[i].city+  ')</div><hr/>';
   }
 
   str += '</div>';
@@ -30,9 +30,10 @@ function showDayEvents(ref, events) {
 }
 
 function loadUserCalendar () {
-  var requestURL, key, myCity, myBands = "", events = {}, eventInfo;
+  var requestURL, key, myCity, radius = 125, myBands = "", events = {}, eventInfo;
   var array = sessionUserData.users[loggedUsername].bandNames;
 
+  $('.responsive-calendar').responsiveCalendar('curr');
   $('.responsive-calendar').responsiveCalendar('clearAll');
   $('#day-events-info').empty();
   
@@ -43,8 +44,10 @@ function loadUserCalendar () {
   if (myBands != "" ) {
     myCity = sessionUserData.users[loggedUsername].city + ",Brasil"
   
-    requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&format=json&app_id=getickets";
+    requestURL = "http://api.bandsintown.com/events/search?" + myBands + "location=" + myCity + "&radius=" + radius + "&format=json&app_id=getickets";
 
+    console.log(requestURL);
+    
     $.ajax({
       url: requestURL,
       type: "GET",
@@ -66,6 +69,7 @@ function loadUserCalendar () {
             eventInfo = {};
             eventInfo.name = resultData[i].artists[j].name;
             eventInfo.ticketURL = resultData[i].ticket_url;
+            eventInfo.city = resultData[i].venue.city;
 
             events[key].dayEvents.push(eventInfo);
           }
@@ -77,4 +81,8 @@ function loadUserCalendar () {
     });
   
   }
+}
+
+function goToToday () {
+  $('.responsive-calendar').responsiveCalendar('curr');
 }
